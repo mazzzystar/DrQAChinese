@@ -68,18 +68,26 @@ def get_contents(filename):
     """Parse the contents of a file. Each line is a JSON encoded document."""
     global PREPROCESS_FN
     documents = []
+
+    count = 0
+    err_count = 0
     with open(filename) as f:
         for line in f:
-            # Parse document
-            doc = json.loads(line)
-            # Maybe preprocess the document with custom function
-            if PREPROCESS_FN:
-                doc = PREPROCESS_FN(doc)
-            # Skip if it is empty or None
-            if not doc:
-                continue
-            # Add the document
-            documents.append((utils.normalize(doc['id']), doc['text']))
+            count += 1
+            try:
+                # Parse document
+                doc = json.loads(line)
+                # Maybe preprocess the document with custom function
+                if PREPROCESS_FN:
+                    doc = PREPROCESS_FN(doc)
+                # Skip if it is empty or None
+                if not doc:
+                    continue
+                # Add the document
+                documents.append((utils.normalize(doc['id']), doc['text']))
+            except:
+                err_count += 1
+    print("count={} err={}".format(count, err_count))
     return documents
 
 

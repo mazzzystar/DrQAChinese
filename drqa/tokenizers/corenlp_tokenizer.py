@@ -29,7 +29,7 @@ class CoreNLPTokenizer(Tokenizer):
         self.classpath = (kwargs.get('classpath') or
                           DEFAULTS['corenlp_classpath'])
         self.annotators = copy.deepcopy(kwargs.get('annotators', set()))
-        self.mem = kwargs.get('mem', '2g')
+        self.mem = kwargs.get('mem', '5g')
         self._launch()
 
     def _launch(self):
@@ -44,10 +44,15 @@ class CoreNLPTokenizer(Tokenizer):
         annotators = ','.join(annotators)
         options = ','.join(['untokenizable=noneDelete',
                             'invertible=true'])
-        cmd = ['java', '-mx' + self.mem, '-cp', '"%s"' % self.classpath,
-               'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators',
-               annotators, '-tokenize.options', options,
-               '-outputFormat', 'json', '-prettyPrint', 'false']
+        cmd = ['java -mx3g -cp "/Users/ke/Documents/QA/DrQA/stanford-corenlp-full-2017-06-09/*" '
+               'edu.stanford.nlp.pipeline.StanfordCoreNLP '
+               '-props StanfordCoreNLP-chinese.properties',
+               ' -annotators ', annotators, ' -outputFormat',
+               'json', ' -prettyPrint', 'false', '-tokenize.options', options]
+        # cmd = ['java', '-mx' + self.mem, '-cp', '"%s"' % self.classpath,
+        #        'edu.stanford.nlp.pipeline.StanfordCoreNLP', '-annotators',
+        #        annotators, '-tokenize.options', options,
+        #        '-outputFormat', 'json', '-prettyPrint', 'false']
 
         # We use pexpect to keep the subprocess alive and feed it commands.
         # Because we don't want to get hit by the max terminal buffer size,
