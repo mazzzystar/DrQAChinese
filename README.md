@@ -21,7 +21,7 @@ Use [WikiExtractor](https://github.com/attardi/wikiextractor) to extract into a 
 
 ## Document Retriver
 Build db and tfidf matrix for Chinese corpus.
-```python
+```
 # build db for wiki data.
 python scripts/retriever/build_db.py wiki/docs/path path/to/save/cnwiki.db
 
@@ -82,10 +82,11 @@ Evaluate `Document Retriver` with Baidu's `webQA` dataset, below is the methods:
 * Calculate the percentage of the case the recalled docs contain answers.
 
 Evaluation the ability for `Document Retriver` with:
-```python
+```
 python scripts/retriever/eval.py webQA.train.json --model path/to/save/tfidf/matrix/cnwiki-tfidf-ngram=2-hash=16777216-tokenizer=jieba.npz --doc-db path/of/cnwiki.db --tokenizer jieba --n-docs 5
 ```
 The result with `jieba` tokenizer is:
+
 | recalled doc num K        | Examples           | Matches in top K  | Match % in top K  | Total time usage（s） |
 | ------------- |:-------------:| :-------------:| :-------------:| -----:| 
 | 5     | 36181 | 23427| 64.75%| 1964.3972|
