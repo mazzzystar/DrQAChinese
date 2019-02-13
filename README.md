@@ -87,9 +87,9 @@ python scripts/retriever/eval.py webQA.train.json --model path/to/save/tfidf/mat
 ```
 The result with `jieba` tokenizer is:
 
-| K        | Examples           | Matches in top K  | Match % in top K  | Total time usage（s） |
+| K        | Examples           | Matches in top K  | Match % in top K  | Time usage（s） |
 | :-------------: |:-------------:| :-------------:| :-------------:|  :-----:| 
-| 5     | 36181 | 23427| 64.75%| 1964.3972|
+| 5     | 36181 | 23427| 64.75| 1964.3972|
 | 20     | 36181 |   27824 | 76.90 | 4808.3328|
 
 ## Document Reader
