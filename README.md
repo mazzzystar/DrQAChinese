@@ -1,5 +1,5 @@
 # DrQAChinese
-This is a PyTorch implementation of the Chinese version DrQA system described in the ACL 2017 paper [Reading Wikipedia to Answer Open-Domain Questions](https://arxiv.org/abs/1704.00051), with several changes from [facebookresearch's DrQA](https://github.com/facebookresearch/DrQA).
+This is a PyTorch implementation of DrQA system described in the ACL 2017 paper [Reading Wikipedia to Answer Open-Domain Questions](https://arxiv.org/abs/1704.00051) on Chinese copurs with several changes from [facebookresearch's DrQA](https://github.com/facebookresearch/DrQA).
 
 <p align="center"><img width="70%" src="img/drqa.png" /></p>
 
