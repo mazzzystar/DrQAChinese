@@ -71,7 +71,7 @@ def get_contents(filename):
 
     count = 0
     err_count = 0
-    with open(filename) as f:
+    with open(filename, encoding="utf8", errors='ignore') as f:
         for line in f:
             count += 1
             try:
@@ -84,7 +84,7 @@ def get_contents(filename):
                 if not doc:
                     continue
                 # Add the document
-                documents.append((utils.normalize(doc['id']), doc['text']))
+                documents.append((utils.normalize(doc['id']), doc['title'], doc['text']))
             except:
                 err_count += 1
     print("count={} err={}".format(count, err_count))
@@ -108,7 +108,7 @@ def store_contents(data_path, save_path, preprocess, num_workers=None):
     logger.info('Reading into database...')
     conn = sqlite3.connect(save_path)
     c = conn.cursor()
-    c.execute("CREATE TABLE documents (id PRIMARY KEY, text);")
+    c.execute("CREATE TABLE documents (id PRIMARY KEY, title, text);")
 
     workers = ProcessPool(num_workers, initializer=init, initargs=(preprocess,))
     files = [f for f in iter_files(data_path)]
@@ -116,7 +116,7 @@ def store_contents(data_path, save_path, preprocess, num_workers=None):
     with tqdm(total=len(files)) as pbar:
         for pairs in tqdm(workers.imap_unordered(get_contents, files)):
             count += len(pairs)
-            c.executemany("INSERT INTO documents VALUES (?,?)", pairs)
+            c.executemany("INSERT INTO documents VALUES (?,?,?)", pairs)
             pbar.update()
     logger.info('Read %d docs.' % count)
     logger.info('Committing...')

@@ -116,7 +116,7 @@ if __name__ == '__main__':
     logger.info('Reading data ...')
     questions = []
     answers = []
-    for line in open(args.dataset):
+    for line in open(args.dataset, 'r', errors='ignore'):
         data = json.loads(line)
         question = data['question']
         answer = data['answer']

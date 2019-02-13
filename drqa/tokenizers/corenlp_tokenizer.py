@@ -44,7 +44,7 @@ class CoreNLPTokenizer(Tokenizer):
         annotators = ','.join(annotators)
         options = ','.join(['untokenizable=noneDelete',
                             'invertible=true'])
-        cmd = ['java -mx3g -cp "/Users/ke/Documents/QA/DrQA/stanford-corenlp-full-2017-06-09/*" '
+        cmd = ['java -mx5g -cp "/Users/ke/Documents/QA/DrQA/stanford-corenlp-full-2017-06-09/*" '
                'edu.stanford.nlp.pipeline.StanfordCoreNLP '
                '-props StanfordCoreNLP-chinese.properties',
                ' -annotators ', annotators, ' -outputFormat',
@@ -57,7 +57,7 @@ class CoreNLPTokenizer(Tokenizer):
         # We use pexpect to keep the subprocess alive and feed it commands.
         # Because we don't want to get hit by the max terminal buffer size,
         # we turn off canonical input processing to have unlimited bytes.
-        self.corenlp = pexpect.spawn('/bin/bash', maxread=100000, timeout=60)
+        self.corenlp = pexpect.spawn('/bin/bash', maxread=100000, timeout=10)
         self.corenlp.setecho(False)
         self.corenlp.sendline('stty -icanon')
         self.corenlp.sendline(' '.join(cmd))

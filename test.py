@@ -1,4 +1,4 @@
 # coding: utf-8
-from drqa.tokenizers import CoreNLPTokenizer
-tok = CoreNLPTokenizer()
-print(tok.tokenize('你好世界').words()) # Should complete immediately
+from drqa.tokenizers import JiebaTokenizer
+tok = JiebaTokenizer()
+print(tok.tokenize('赵本山是谁？我和他是世界上最美的人嘛').words()) # Should complete immediately

@@ -31,14 +31,22 @@ ranker = retriever.get_class('tfidf')(tfidf_path=args.model)
 # Drop in to interactive
 # ------------------------------------------------------------------------------
 
+from scripts.retriever.visit_db import get_title
+
 
 def process(query, k=1):
     doc_names, doc_scores = ranker.closest_docs(query, k)
+    titles = []
+    for id in doc_names:
+        rows = get_title(str(id))
+        # print(rows)
+        titles.append(rows[0][1])
+
     table = prettytable.PrettyTable(
-        ['Rank', 'Doc Id', 'Doc Score']
+        ['Rank', 'Doc Id', 'Title', 'Doc Score']
     )
     for i in range(len(doc_names)):
-        table.add_row([i + 1, doc_names[i], '%.5g' % doc_scores[i]])
+        table.add_row([i + 1, doc_names[i], titles[i], '%.5g' % doc_scores[i]])
     print(table)
 
 
